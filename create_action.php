@@ -1,6 +1,9 @@
 <?php
 
+session_start();
+
 require 'config.php';
+require './validates/Messages.php';
 require 'dao/UserDaoMysql.php';
 
 $userDao = new UserDaoMysql($pdo);
@@ -18,16 +21,24 @@ if($name && $email) {
 
         $userDao->addUser($newUser);
 
+        $messages = new Messages;
+        $messages->setMessageSuccess('Usuário criado com sucesso!');
+
         header("Location:index.php");
 
     } else {
 
+        $messages = new Messages;
+        $messages->setMessageError('Email já está em uso.');
+
         header("Location:createUser.php");
         exit;
-
     }
 
 }  else {
+
+    $messages = new Messages;
+    $messages->setMessageError('Nome e email são campos obrigatórios');
 
     header("Location:createUser.php");
     exit;

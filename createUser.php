@@ -1,5 +1,17 @@
+<?php
+    
+    session_start(); 
+    require './validates/Messages.php';
+?>
 
 <h1>Adicionar usuário</h1>
+
+    <?php 
+
+        $messages = new Messages;
+        echo $messages->getMessageError();
+        echo $messages->setMessageError('');
+    ?>
 
 <form method="POST" action="create_action.php">
 
@@ -11,7 +23,7 @@
 
 <label> Email:
 
-<br/><br/><input type="text" name="email" /><br/><br/>
+<br/><br/><input type="email" name="email" /><br/><br/>
 
 </label><br/><br/>
 
